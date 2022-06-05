@@ -2,9 +2,8 @@ import {useState} from "react";
 import axios from "axios";
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
-import { Container, Box, Avatar, Button, CssBaseline, TextField, FormControl, Checkbox, Link, Grid, Typography, Alert, Select, MenuItem, InputLabel } from '@mui/material';
-import PersonAddAltTwoToneIcon from '@mui/icons-material/PersonAddAltTwoTone';
-
+import { Container, Box, Button, TextField, Typography, Alert} from '@mui/material';
+import FileBase64 from 'react-file-base64';
 
 import Header from './header';
 import Footer from './footer';
@@ -19,6 +18,7 @@ const AddPost = (props) => {
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
     const [loading, setLoading] = useState(false);
+    const [imageFile, setImageFile] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = (event) => {
@@ -32,7 +32,8 @@ const AddPost = (props) => {
             data: qs.stringify({
               title: data.get('title'),
               desc: data.get('desc'),
-              ownerId: props.user._id
+              image: imageFile,
+            ownerId: props.user._id
             }),
             headers: {
               'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
@@ -85,6 +86,10 @@ const AddPost = (props) => {
                         multiline
                         rows={6}
                         />
+                        <FileBase64
+                            multiple={ false }
+                            onDone={ ({base64}) => setImageFile(base64) } />
+
                         {errorMessage!=""&&errorMessage!=null ? <Alert severity="error">{errorMessage}</Alert>: ''}
                         {successMessage!=""&&successMessage!=null ? <Alert severity="success">{successMessage}</Alert>: ''}
                         <Button

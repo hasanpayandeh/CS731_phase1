@@ -47,7 +47,8 @@ router.post('/login', asyncHandler(async (req, res) => {
             "signuptype": user.signuptype,
             "username": user.username,
             "email": user.email,
-            "name": user.name
+            "name": user.name,
+            "image": user.image
         });
     }
     else
@@ -57,7 +58,7 @@ router.post('/login', asyncHandler(async (req, res) => {
 }));
 
 router.post('/signup', asyncHandler(async (req, res) => {
-    const {signuptype, username, password, repassword, name, email} = req.body;
+    const {signuptype, username, password, repassword, name, email, image} = req.body;
 
     if(!signuptype) {
         res.status(400).json({"error": "Signup Type is required"});
@@ -85,7 +86,8 @@ router.post('/signup', asyncHandler(async (req, res) => {
             username: username,
             password: password,
             email: email,
-            name: name
+            name: name,
+            image: image
         });
 
         if(user) {
@@ -94,7 +96,8 @@ router.post('/signup', asyncHandler(async (req, res) => {
                 "signuptype": user.signuptype,
                 "username": user.username,
                 "email": user.email,
-                "name": user.name
+                "name": user.name,
+                "image": user.image
             });
         } else {
             res.status(400).json({"error": "There is a problem with your sign up request"});

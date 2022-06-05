@@ -14,7 +14,7 @@ router.get('/list/:ownerId/:userId', asyncHandler(async (req, res) => {
 
     await Foods.find({ownerId: req.params.ownerId}).then(foods2 => {
         foods2.map( food => {
-            results2.push({ "_id": food._id, "ownerId": food.ownerId, "title": food.title, "desc": food.desc, "upvotes": 0, "downvotes": 0, "sumvotes": 0, "userVote": 0});
+            results2.push({ "_id": food._id, "ownerId": food.ownerId, "title": food.title, "desc": food.desc, "image": food.image, "upvotes": 0, "downvotes": 0, "sumvotes": 0, "userVote": 0});
         })
     })
 

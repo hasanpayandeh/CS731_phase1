@@ -8,7 +8,7 @@ const Foods = require("../model/foodsModel");
 const Users = require("../model/usersModel");
 
 router.post('/add', asyncHandler(async (req, res) => {
-    const {title, desc, ownerId} = req.body;
+    const {title, desc, ownerId, image} = req.body;
 
     if(!title) {
         res.status(400).json({"error": "Title is required"});
@@ -27,7 +27,8 @@ router.post('/add', asyncHandler(async (req, res) => {
         const food = await Foods.create({
             title: title,
             desc: desc,
-            ownerId: ownerId
+            ownerId: ownerId,
+            image: image
         });
 
         if(food) {
@@ -35,7 +36,8 @@ router.post('/add', asyncHandler(async (req, res) => {
                 "_id": food._id,
                 "ownerId": food.ownerId,
                 "title": food.title,
-                "desc": food.desc
+                "desc": food.desc,
+                "image": food.image
             });
         } else {
             res.status(400).json({"error": "There is a problem with your add post request"});

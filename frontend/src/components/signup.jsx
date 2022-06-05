@@ -2,9 +2,9 @@ import {useState} from "react";
 import axios from "axios";
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
-import { Container, Box, Avatar, Button, CssBaseline, TextField, FormControl, Checkbox, Link, Grid, Typography, Alert, Select, MenuItem, InputLabel } from '@mui/material';
+import { Container, Box, Avatar, Button, CssBaseline, TextField, FormControl, Link, Grid, Typography, Alert, Select, MenuItem, InputLabel } from '@mui/material';
 import PersonAddAltTwoToneIcon from '@mui/icons-material/PersonAddAltTwoTone';
-
+import FileBase64 from 'react-file-base64';
 
 import Header from './header';
 import Footer from './footer';
@@ -19,6 +19,7 @@ const Signup = (props) => {
     const [errorMessage, setErrorMessage] = useState("");
     const [signupType, setSignupType] = useState("customer");
     const [loading, setLoading] = useState(false);
+    const [imageFile, setImageFile] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = (event) => {
@@ -35,7 +36,8 @@ const Signup = (props) => {
               password: data.get('password'),
               repassword: data.get('repassword'),
               email: data.get('email'),
-              name: data.get('name')
+              name: data.get('name'),
+              image: imageFile
             }),
             headers: {
               'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
@@ -142,6 +144,11 @@ const Signup = (props) => {
                         autoComplete="name"
                         autoFocus
                         />
+                        <Box className="uploadimagebox">
+                            {signupType=="customer" ? "Avatar Image" : "Restaurant Image"}: <FileBase64
+                            multiple={ false }
+                            onDone={ ({base64}) => setImageFile(base64) } />
+                        </Box>
                         {errorMessage!=""&&errorMessage!=null ? <Alert severity="error">{errorMessage}</Alert>: ''}
                         <Button
                         type="submit"

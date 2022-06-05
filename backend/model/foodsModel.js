@@ -13,6 +13,10 @@ const foodsSchema = mongoose.Schema({
     desc: {
         type: String,
         required: false
+    },
+    image: {
+        type: String,
+        required: false
     }
 }, {
     timestamps: true

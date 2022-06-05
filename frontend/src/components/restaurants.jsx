@@ -7,6 +7,7 @@ import { Container, Box, Avatar, Button, CssBaseline, TextField, FormControlLabe
 import Header from './header';
 import Footer from './footer';
 import Loading from './loading';
+import noImage from '../assets/noimage.jpg';
 
 const Restaurants = (props) => {
     if(props.user._id==""||props.user._id==null) {
@@ -54,7 +55,7 @@ const Restaurants = (props) => {
                     <CardMedia
                         component="img"
                         sx={{ height: 300 }}
-                        image={"https://source.unsplash.com/random/?Restaurants&sig="+(Math.floor(Math.random()*10))}
+                        image={props.card.image!=""&&props.card.image!=null ? props.card.image : noImage}
                         alt="random"
                     />
                     <CardContent sx={{ flexGrow: 1, paddingBottom: "5px" }}>

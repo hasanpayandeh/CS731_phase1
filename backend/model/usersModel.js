@@ -20,6 +20,10 @@ const usersSchema = mongoose.Schema({
     name: {
         type: String,
         required: false
+    },
+    image: {
+        type: String,
+        required: false
     }
 }, {
     timestamps: true

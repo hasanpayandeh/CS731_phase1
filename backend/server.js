@@ -9,17 +9,19 @@ const express = require('express');
 const dotenv = require('dotenv').config();
 const connectDB = require('./config/db');
 const port = process.env.PORT || 5000;
+const bodyParser = require('body-parser')
 
 connectDB();
 
 const app = express();
 
-// for fixing NetworkError
+// fixing NetworkError
 var cors = require("cors");
 app.use(cors());
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false}));
+// changing upload limit
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 // definition of diferrent routes
 app.use('/users', require('./routes/usersRoutes'));

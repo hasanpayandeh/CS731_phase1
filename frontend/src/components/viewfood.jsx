@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
-import { Container, Box, Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Typography, Alert, Card, CardMedia, CardActions, CardContent, Paper, TextareaAutosize  } from '@mui/material';
+import { Container, Box, Button, TextField, Grid, Typography, Alert, CardMedia, Paper  } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 
@@ -10,6 +10,7 @@ import DateRangeIcon from '@mui/icons-material/DateRange';
 import Header from './header';
 import Footer from './footer';
 import Loading from './loading';
+import noImage from '../assets/noimage.jpg'
 
 const ViewFood = (props) => {
     const navigate = useNavigate();
@@ -180,7 +181,7 @@ const ViewFood = (props) => {
                         <CardMedia
                             component="img"
                             sx={{ height: 400, borderRadius: 4, border: "1px solid #333" }}
-                            image={"https://source.unsplash.com/random/?Restaurants&sig="+(Math.floor(Math.random()*10))}
+                            image={food.image!=""&&food.image!=null ? food.image : noImage}
                             alt="random"
                         />
                     </Grid>

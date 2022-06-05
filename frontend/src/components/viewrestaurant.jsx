@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import qs from "qs";
 import { useNavigate } from "react-router-dom";
-import { Container, Box, Button, Grid, Typography, Card, CardActions, CardContent, Paper } from '@mui/material';
+import { Container, Box, Button, Grid, Typography, Card, CardActions, CardContent, Paper, CardMedia } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
@@ -131,6 +131,16 @@ const ViewRestaurant = (props) => {
                                     <Typography variant="h3">{props2.sortnumber}</Typography>
                                 </Paper>
                             </Grid>
+                            {props2.card.image!=""&&props2.card.image!=null ?
+                                <Grid item>
+                                    <CardMedia
+                                        component="img"
+                                        sx={{ height: 100, width: 130, borderRadius: 1, border: "1px solid #333" }}
+                                        image={props2.card.image}
+                                        alt="random"
+                                        />
+                                </Grid>
+                             : ''}
                             <Grid item>
                                 <Typography variant="h5" component="h2" sx={{paddingTop: "32px", paddingLeft: "10px"}}>
                                 {props2.card.title}
