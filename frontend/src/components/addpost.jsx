@@ -86,10 +86,11 @@ const AddPost = (props) => {
                         multiline
                         rows={6}
                         />
-                        <FileBase64
+                        <Box className="uploadimagebox">
+                            <FileBase64
                             multiple={ false }
                             onDone={ ({base64}) => setImageFile(base64) } />
-
+                        </Box>
                         {errorMessage!=""&&errorMessage!=null ? <Alert severity="error">{errorMessage}</Alert>: ''}
                         {successMessage!=""&&successMessage!=null ? <Alert severity="success">{successMessage}</Alert>: ''}
                         <Button
