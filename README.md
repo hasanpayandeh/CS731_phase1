@@ -6,9 +6,9 @@
 - MohammadHasan Payandeh
 - mpu236@uregina.ca
 
-## Installation instructions
+## Installation instruction
 - Enter "npm install" command in the root and frontend folder for installing NODE_MODULES
 
-## Operational instructions
+## Operation instructions
 - Enter "npm run server" command in the root for running the server. You can access it on http://localhost:5000 
 - Enter "npm run client" command in the root for running the client. You can access it on http://localhost:3000 
