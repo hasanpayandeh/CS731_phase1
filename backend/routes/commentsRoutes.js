@@ -50,7 +50,7 @@ router.get('/ownerlist/:ownerId', asyncHandler(async (req, res) => {
     var foodslist2 = await Foods.find({ownerId: req.params.ownerId})
     var foodslist = Array();
     for(var i=0; i<foodslist2.length; i++) {
-        foodslist.push(foodslist2[0]._id);
+        foodslist.push(foodslist2[i]._id);
     }
     var comments = await Comments.find({foodId: {$in: foodslist}, userId: {$ne: req.params.ownerId}}).populate({path:'userId', select:['username']}).populate({path:'foodId', select:['title']});
     res.status(200).json(comments);
