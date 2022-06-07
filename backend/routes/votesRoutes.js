@@ -70,7 +70,7 @@ router.get('/list/:ownerId/:userId', asyncHandler(async (req, res) => {
             
         }
     }
-    console.log(results2);
+    
     results2.sort((a,b) => (a.sumvotes > b.sumvotes) ? -1 : ((b.sumvotes > a.sumvotes) ? 1 : 0));
 
     res.status(200).json(results2);

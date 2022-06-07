@@ -82,7 +82,6 @@ const Login = (props) => {
                         label="Email Address or Username"
                         name="username"
                         autoComplete="username"
-                        autoFocus
                         />
                         <TextField
                         margin="normal"

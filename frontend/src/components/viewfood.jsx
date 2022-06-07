@@ -144,7 +144,6 @@ const ViewFood = (props) => {
                         label="Please enter your comment here"
                         name="msg"
                         autoComplete="msg"
-                        autoFocus
                         multiline
                         rows={4}
                         sx={{backgroundColor: "#fff"}}

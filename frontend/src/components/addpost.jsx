@@ -73,7 +73,6 @@ const AddPost = (props) => {
                         label="Title"
                         name="title"
                         autoComplete="title"
-                        autoFocus
                         />
                         <TextField
                         margin="normal"
@@ -82,7 +81,6 @@ const AddPost = (props) => {
                         label="Description"
                         name="desc"
                         autoComplete="desc"
-                        autoFocus
                         multiline
                         rows={6}
                         />

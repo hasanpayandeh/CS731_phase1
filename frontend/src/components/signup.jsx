@@ -104,7 +104,6 @@ const Signup = (props) => {
                         label="Username"
                         name="username"
                         autoComplete="username"
-                        autoFocus
                         />
                         <TextField
                         margin="normal"
@@ -133,7 +132,6 @@ const Signup = (props) => {
                         label="Email Address"
                         name="email"
                         autoComplete="email"
-                        autoFocus
                         />
                         <TextField
                         margin="normal"
@@ -142,7 +140,6 @@ const Signup = (props) => {
                         label={signupType=="customer" ? "Name" : "Restaurant Name"}
                         name="name"
                         autoComplete="name"
-                        autoFocus
                         />
                         <Box className="uploadimagebox">
                             {signupType=="customer" ? "Avatar Image" : "Restaurant Image"}: <FileBase64
