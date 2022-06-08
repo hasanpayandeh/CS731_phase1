@@ -9,11 +9,17 @@ const Users = require("../model/usersModel");
 
 router.post('/add', asyncHandler(async (req, res) => {
     const {title, desc, ownerId, image} = req.body;
+    var err=0;
 
     if(!title) {
         res.status(400).json({"error": "Title is required"});
+        err=1;
+    } else if(title.length<=6) {
+        res.status(400).json({"error": "Title length should be more than 6 characters"});
+        err=1;
     } else if(!ownerId) {
         res.status(400).json({"error": "ownerId is required"});
+        err=1;
     }
 
     const ownerExists = await Users.findOne({_id: ownerId, signuptype: "owner"});
@@ -23,7 +29,7 @@ router.post('/add', asyncHandler(async (req, res) => {
         res.status(400).json({"error": "Owner does not exists or you are not an owner"});
     } else if(foodExists) {
         res.status(400).json({"error": "You added a same post before"});
-    } else {
+    } else if(err==0) {
         const food = await Foods.create({
             title: title,
             desc: desc,

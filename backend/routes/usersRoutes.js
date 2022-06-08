@@ -59,17 +59,29 @@ router.post('/login', asyncHandler(async (req, res) => {
 
 router.post('/signup', asyncHandler(async (req, res) => {
     const {signuptype, username, password, repassword, name, email, image} = req.body;
+    var err=0;
 
     if(!signuptype) {
         res.status(400).json({"error": "Signup Type is required"});
+        err=1;
     } else if(!username) {
         res.status(400).json({"error": "Username is required"});
+        err=1;
+    } else if(username.length<6||username.length>12) {
+        res.status(400).json({"error": "Username length should be between 6 and 12 characters"});
+        err=1;
     } else if(!password) {
         res.status(400).json({"error": "Password is required"});
+        err=1;
+    } else if(password.length<6||password.length>16) {
+        res.status(400).json({"error": "Password length should be between 6 and 16 characters"});
+        err=1;
     } else if(!repassword) {
         res.status(400).json({"error": "Confirm Password is required"});
+        err=1;
     } else if(password!=repassword) {
         res.status(400).json({"error": "Password and Confirm Password do not match."});
+        err=1;
     }
 
     const userExists = await Users.findOne({username});
@@ -77,9 +89,11 @@ router.post('/signup', asyncHandler(async (req, res) => {
 
     if(userExists) {
         res.status(400).json({"error": "Username already exists. Try another one"});
+    } else if(email!=""&&!(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email))) {
+        res.status(400).json({"error": "Please enter your email correctly"});
     } else if(email!=""&&email!=null&&emailExists) {
         res.status(400).json({"error": "Email already exists. Try another one"});
-    } else {
+    } else if(err==0) {
         
         const user = await Users.create({
             signuptype: signuptype,

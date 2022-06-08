@@ -16,13 +16,20 @@ router.get('/list/:foodId', asyncHandler(async (req, res) => {
 
 router.post('/send', asyncHandler(async (req, res) => {
     const {userId, foodId, msg} = req.body;
+    var err=0;
 
     if(!userId) {
         res.status(400).json({"error": "userId is required"});
+        err=1;
     } else if(!foodId) {
         res.status(400).json({"error": "foodId is required"});
+        err=1;
     } else if(!msg) {
         res.status(400).json({"error": "Plesae type a message"});
+        err=1;
+    } else if(msg.length<=8) {
+        res.status(400).json({"error": "Message length should be more than 8 characters"});
+        err=1;
     }
 
     var user = await Users.findOne({_id: userId});
@@ -35,7 +42,7 @@ router.post('/send', asyncHandler(async (req, res) => {
         res.status(400).json({"error": "foodId is incorrect"});
     }else if(pastmsg) {
         res.status(400).json({"error": "You have already sent a comment!"});
-    } else {
+    } else if(err==0) {
         const sendComment = await Comments.create({
             userId: userId,
             foodId: foodId,
@@ -52,7 +59,7 @@ router.get('/ownerlist/:ownerId', asyncHandler(async (req, res) => {
     for(var i=0; i<foodslist2.length; i++) {
         foodslist.push(foodslist2[i]._id);
     }
-    var comments = await Comments.find({foodId: {$in: foodslist}, userId: {$ne: req.params.ownerId}}).populate({path:'userId', select:['username']}).populate({path:'foodId', select:['title']});
+    var comments = await Comments.find({foodId: {$in: foodslist}}).populate({path:'userId', select:['username']}).populate({path:'foodId', select:['title']});
     res.status(200).json(comments);
 }));
 

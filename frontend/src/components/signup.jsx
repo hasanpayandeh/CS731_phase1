@@ -20,6 +20,7 @@ const Signup = (props) => {
     const [signupType, setSignupType] = useState("customer");
     const [loading, setLoading] = useState(false);
     const [imageFile, setImageFile] = useState("");
+    const [imageFileName, setImageFileName] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = (event) => {
@@ -55,6 +56,27 @@ const Signup = (props) => {
             });
 
       };
+
+    const uploadImage = async (e) => {
+        const file = e.target.files[0];
+        const base64 = await convertBase64(file);
+        setImageFile(base64);
+    };
+
+    const convertBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+
+        fileReader.onload = () => {
+            resolve(fileReader.result);
+        };
+
+        fileReader.onerror = (error) => {
+            reject(error);
+        };
+        });
+    };
 
     return (
         <>
@@ -141,12 +163,19 @@ const Signup = (props) => {
                         name="name"
                         autoComplete="name"
                         />
-                        <Box className="uploadimagebox">
-                            {signupType=="customer" ? "Avatar Image" : "Restaurant Image"}: <FileBase64
-                            multiple={ false }
-                            onDone={ ({base64}) => setImageFile(base64) } />
+                        <Box className="uploadimagebox" textAlign={"left"}>
+                            <label htmlFor="contained-button-file">
+                                {signupType=="customer" ? "Avatar Image" : "Restaurant Image"}: &nbsp;
+                                <input accept="image/*" style={{display: "none"}} id="contained-button-file" multiple type="file" onChange={(e) => {uploadImage(e); setImageFileName(document.getElementById("contained-button-file").value)}} />
+                                <Button variant="contained" component="span">
+                                Select
+                                </Button> 
+                                <span style={{fontSize: "10px"}}> 
+                                    &nbsp; {imageFileName=="" ? "No image selected" : (<span style={{color: "#c70000"}}>{imageFileName.split("\\")[imageFileName.split("\\").length - 1]}</span>)}
+                                </span>
+                            </label>
                         </Box>
-                        {errorMessage!=""&&errorMessage!=null ? <Alert severity="error">{errorMessage}</Alert>: ''}
+                        {errorMessage!=""&&errorMessage!=null ? <><br/><Alert severity="error">{errorMessage}</Alert></> : ''}
                         <Button
                         type="submit"
                         fullWidth

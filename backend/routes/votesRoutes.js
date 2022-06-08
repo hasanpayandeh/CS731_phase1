@@ -78,13 +78,17 @@ router.get('/list/:ownerId/:userId', asyncHandler(async (req, res) => {
 
 router.post('/add', asyncHandler(async (req, res) => {
     const {userId, foodId, vote} = req.body;
+    var err=0;
 
     if(!userId) {
         res.status(400).json({"error": "userId is required"});
+        err=1;
     } else if(!foodId) {
         res.status(400).json({"error": "foodId is required"});
+        err=1;
     } else if(vote!=1&&vote!=-1) {
         res.status(400).json({"error": "vote is required"});
+        err=1;
     }
 
     var user = await Users.findOne({_id: userId});
@@ -96,7 +100,7 @@ router.post('/add', asyncHandler(async (req, res) => {
         res.status(400).json({"error": "userId is incorrect"});
     } else if(!food) {
         res.status(400).json({"error": "foodId is incorrect"});
-    } else {
+    } else if(err==0) {
 
         // remove previous vote
         if(pastvotesame) {
